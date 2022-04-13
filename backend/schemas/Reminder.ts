@@ -25,6 +25,8 @@ export const Reminder = list({
         { label: 'Blue', value: 'blue' },
         { label: 'Red', value: 'red' },
         { label: 'Green', value: 'green' },
+        { label: 'Orange', value: 'orange' },
+        { label: 'White', value: 'white' },
       ],
       // We want to make sure new posts start off as a draft when they are created
       defaultValue: 'silver',
@@ -38,6 +40,8 @@ export const Reminder = list({
         { label: 'Bell', value: 'bell' },
         { label: 'Chimes', value: 'chimes' },
         { label: 'Gong', value: 'gong' },
+        { label: 'Beep', value: 'beep' },
+        { label: 'Jingle', value: 'jingle' },
       ],
       // We want to make sure new posts start off as a draft when they are created
       defaultValue: 'bell',

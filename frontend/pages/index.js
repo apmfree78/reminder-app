@@ -11,6 +11,8 @@ const REMINDER_QUERY = gql`
     allReminders {
       time
       label
+      sound
+      color
       alert
       author {
         name
@@ -21,7 +23,7 @@ const REMINDER_QUERY = gql`
 
 export default function Home() {
   const { data, loading, error } = useQuery(REMINDER_QUERY);
-  if (loading) return <p>Loading</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return console.error(error);
   const reminders = data.allReminders;
   return (
@@ -29,11 +31,11 @@ export default function Home() {
     <Container sx={{ p: 2 }} maxWidth="lg">
       <Grid container spacing={1}>
         {reminders.map((reminder) => (
-          <Grid key={reminder.id} item xs={6} md={4}>
+          <Grid key={reminder.id} item xs={6} sm={4} md={3}>
             <ReminderCard key={reminder.id} reminder={reminder} />
           </Grid>
         ))}
-        {/* final element is '+' to add new Reminder Card  */}
+        {/* final element is '+' button to add new Reminder Card  */}
         <Grid
           sx={{
             display: 'flex',
@@ -42,7 +44,8 @@ export default function Home() {
           }}
           item
           xs={6}
-          md={4}
+          sm={4}
+          md={3}
         >
           <Button>
             {/* + icon  */}

@@ -10,8 +10,11 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { createGlobalStyle } from 'styled-components';
 import Timer from './Timer';
 import TimerAlert from './TimerAlert';
+import playSound from '../lib/playSound';
+import { cardColors } from '../lib/color-data';
 
 export default function ReminderCard({ reminder }) {
   // setting initial states based on reminder prop
@@ -21,7 +24,7 @@ export default function ReminderCard({ reminder }) {
   const _current = _session * 60; // current time in seconds
 
   // deconstruction reminder prop
-  const { label, alert, author } = reminder;
+  const { label, alert, author, sound, color } = reminder;
 
   // setting local state
   const [isPlaying, setIsPlaying] = useState(_playing);
@@ -48,11 +51,7 @@ export default function ReminderCard({ reminder }) {
       _currentTime = _session * 60;
 
       // RING ALARM now that session has ended
-      const alarm = new Audio('household_alarm_clock_beep_tone.mp3');
-
-      // setting volume
-      alarm.volume = 0.5;
-      alarm.play();
+      playSound(sound);
 
       // show timer alert message
       setTimerAlert(true);
@@ -101,11 +100,15 @@ export default function ReminderCard({ reminder }) {
     return () => clearInterval(interval);
   });
 
+  console.log(cardColors[color]);
   return (
-    <Card sx={{ maxWidth: 345, boxShadow: 4, m: 1 }}>
-      {timerAlert ? <TimerAlert>{alert}</TimerAlert> : null}
+    <Card
+      sx={{ bgcolor: cardColors[color], maxWidth: 345, boxShadow: 4, m: 1 }}
+    >
+      {/* display custom alert to user when timer completes */}
+      {timerAlert && <TimerAlert>{alert}</TimerAlert>}
       <CardHeader
-        /*        avatar={
+        /*        avatar={ 
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
             T
           </Avatar>
