@@ -8,4 +8,6 @@ const cardColors = {
   white: '#ffffff',
 };
 
-export { cardColors };
+const cardKeys = Object.keys(cardColors);
+
+export { cardColors, cardKeys };

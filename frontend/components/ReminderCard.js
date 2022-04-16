@@ -10,11 +10,11 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { createGlobalStyle } from 'styled-components';
 import Timer from './Timer';
 import TimerAlert from './TimerAlert';
 import playSound from '../lib/playSound';
 import { cardColors } from '../lib/color-data';
+import SettingModal from './SettingModal';
 
 export default function ReminderCard({ reminder }) {
   // setting initial states based on reminder prop
@@ -30,6 +30,7 @@ export default function ReminderCard({ reminder }) {
   const [isPlaying, setIsPlaying] = useState(_playing);
   const [currentTime, setTime] = useState(_current);
   const [timerAlert, setTimerAlert] = useState(false); // show timer alert message?
+  const [openSettings, setOpenSettings] = useState(false);
 
   // callback function for setInternal
   // function will be repeated each second
@@ -89,7 +90,6 @@ export default function ReminderCard({ reminder }) {
   // useEffect to setInterval and clearInterval for timer
   useEffect(() => {
     // itializing timer
-    // console.log('useEffect instance');
     const interval = setInterval(countDown, 1000);
 
     // if timer is stopped , or never started
@@ -100,13 +100,20 @@ export default function ReminderCard({ reminder }) {
     return () => clearInterval(interval);
   });
 
-  console.log(cardColors[color]);
   return (
     <Card
       sx={{ bgcolor: cardColors[color], maxWidth: 345, boxShadow: 4, m: 1 }}
     >
       {/* display custom alert to user when timer completes */}
       {timerAlert && <TimerAlert>{alert}</TimerAlert>}
+      {/* display settings modal to change Reminder Settings  */}
+      {openSettings && (
+        <SettingModal
+          open={openSettings}
+          setOpen={setOpenSettings}
+          reminder={reminder}
+        />
+      )}
       <CardHeader
         /*        avatar={ 
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -115,12 +122,15 @@ export default function ReminderCard({ reminder }) {
         } */
         // gear to adjust settings
         action={
-          <IconButton aria-label="settings">
+          <IconButton
+            aria-label="settings"
+            onClick={() => setOpenSettings(true)}
+          >
             <SettingsIcon />
           </IconButton>
         }
         title={label} // Reminder label
-        subheader={`Created by: ${author.name}`} // author name
+        subheader={`Created by: ${author ? author.name : 'Anon'}`} // author name
       />
 
       <CardContent

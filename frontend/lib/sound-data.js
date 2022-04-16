@@ -17,4 +17,6 @@ const alertSounds = {
   },
 };
 
-export { alertSounds };
+const soundKeys = Object.keys(alertSounds);
+
+export { alertSounds, soundKeys };
