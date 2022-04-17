@@ -11,23 +11,28 @@ import {
   TextField,
   Grid,
 } from '@mui/material';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import SendIcon from '@mui/icons-material/Send';
 import gql from 'graphql-tag';
 import { cardKeys } from '../lib/color-data';
 import { soundKeys } from '../lib/sound-data';
 import useForm from '../lib/useForm';
 import { ALL_REMINDERS_QUERY } from '../pages';
+import DisplayError from './ErrorMessage';
+import DeleteReminder from './DeleteReminder';
 
 // graphQL mutation to create a new Reminder
-const CREATE_REMINDER_MUTATION = gql`
-  mutation CREATE_REMINDER_MUTATION(
-    $time: Int!
-    $label: String!
-    $alert: String!
-    $color: String!
-    $sound: String!
+const UPDATE_REMINDER_MUTATION = gql`
+  mutation UPDATE_REMINDER_MUTATION(
+    $id: ID!
+    $time: Int
+    $label: String
+    $alert: String
+    $color: String
+    $sound: String
   ) {
-    createReminder(
+    updateReminder(
+      id: $id
       data: {
         time: $time
         label: $label
@@ -38,6 +43,9 @@ const CREATE_REMINDER_MUTATION = gql`
     ) {
       id
       label
+      alert
+      color
+      sound
     }
   }
 `;
@@ -51,20 +59,16 @@ const MAX_TIME = 120;
 // execute to close whatever popup this form shows up in
 // right now it's setup to accept 'closeFrom' from ModalTemplate
 // located in /lib/ModalTemplate.js
-export default function CreateReminderForm({ closeForm }) {
+export default function UpdateReminderForm({ reminder, closeForm }) {
   // create state for form input and handling
   // using custom hook useFomr
-  const { inputs, handleChange, clearForm } = useForm({});
+  const { inputs, handleChange, clearForm } = useForm(reminder);
   console.log(inputs);
 
   // useMutation hook to generate createReminder function
   // that will create new Reminder
-  const [createReminder, { loading, error }] = useMutation(
-    CREATE_REMINDER_MUTATION,
-    {
-      variables: inputs, // submit form inputs to create new Reminder
-      refetchQueries: [{ query: ALL_REMINDERS_QUERY }], // update apollo cache
-    }
+  const [updateReminder, { loading, error }] = useMutation(
+    UPDATE_REMINDER_MUTATION
   );
   if (loading) return <p>Loading...</p>;
   if (error) return console.error(error); // catch errors
@@ -72,17 +76,23 @@ export default function CreateReminderForm({ closeForm }) {
 
   async function handleSubmit(e) {
     e.preventDefault(); // prevent default form behavior
-    await createReminder(); // create new reminder using 'inputs' from form
-    console.log('new reminder created!');
+    // create new reminder using 'inputs' from form
+    const res = await updateReminder({
+      variables: { id: reminder.id, ...inputs }, // submit form inputs to create new Reminder
+      refetchQueries: [{ query: ALL_REMINDERS_QUERY }], // update apollo cache
+    }).catch(console.error);
+    console.log('reminder updated!');
+    console.log(res);
     clearForm();
     closeForm();
   }
-  // input form to create new Reminder,
+  // input form to Update Reminder,
   // will take : time (in minutes), title (label), alert message,
   // color , and sound.  all fields are required.  color and
   // sound are pre-defined - user selects from drop down
   return (
     <form onSubmit={handleSubmit}>
+      <DisplayError error={error} />
       {/* use fieldset to disable form when graphQL mutation is executing */}
       <fieldset disabled={loading} aria-busy={loading}>
         <Grid container justifyContent="center" alignItems="center">
@@ -177,8 +187,11 @@ export default function CreateReminderForm({ closeForm }) {
             color="success"
             endIcon={<SendIcon />}
           >
-            Create Reminder
+            Update Reminder
           </Button>
+          <DeleteReminder id={reminder.id} closeForm={closeForm}>
+            Delete Reminder
+          </DeleteReminder>
         </Grid>
       </fieldset>
     </form>

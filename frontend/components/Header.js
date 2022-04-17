@@ -20,7 +20,7 @@ export default function Header() {
           component="div"
           sx={{ fontWeight: 'bold', flexGrow: 1 }}
         >
-          Reminder
+          REMINDER
         </Typography>
         <Button color="inherit">Login</Button>
         <Button color="inherit">Logout</Button>

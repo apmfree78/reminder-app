@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
@@ -14,7 +15,8 @@ import Timer from './Timer';
 import TimerAlert from './TimerAlert';
 import playSound from '../lib/playSound';
 import { cardColors } from '../lib/color-data';
-import SettingModal from './SettingModal';
+import ModalTemplate from '../lib/ModalTemplate';
+import UpdateReminderForm from './UpdateReminderForm';
 
 export default function ReminderCard({ reminder }) {
   // setting initial states based on reminder prop
@@ -100,6 +102,9 @@ export default function ReminderCard({ reminder }) {
     return () => clearInterval(interval);
   });
 
+  // if reminder.time is updated, reset currentTime to match it
+  useEffect(() => setTime(reminder.time * 60), [reminder.time]);
+
   return (
     <Card
       sx={{ bgcolor: cardColors[color], maxWidth: 345, boxShadow: 4, m: 1 }}
@@ -108,11 +113,13 @@ export default function ReminderCard({ reminder }) {
       {timerAlert && <TimerAlert>{alert}</TimerAlert>}
       {/* display settings modal to change Reminder Settings  */}
       {openSettings && (
-        <SettingModal
+        <ModalTemplate
           open={openSettings}
           setOpen={setOpenSettings}
-          reminder={reminder}
-        />
+          message={`Edit ${reminder.label} Reminder`}
+        >
+          <UpdateReminderForm reminder={reminder} />
+        </ModalTemplate>
       )}
       <CardHeader
         /*        avatar={ 
