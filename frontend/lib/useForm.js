@@ -12,7 +12,6 @@ export default function useForm(initial = {}) {
 
   function handleChange(e) {
     let { value, name, type } = e.target;
-    console.log(e.target);
 
     if (type === 'number') {
       value = parseInt(value);
@@ -22,7 +21,6 @@ export default function useForm(initial = {}) {
       ...inputs, // copying existing stae
       [name]: value, // updating name field with inputed 'value'
     });
-    console.log('updated submitted data');
   }
 
   function resetForm() {

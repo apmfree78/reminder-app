@@ -11,14 +11,14 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Timer from './Timer';
-import TimerAlert from './TimerAlert';
-import playSound from '../lib/playSound';
-import { cardColors } from '../lib/color-data';
-import ModalTemplate from '../lib/ModalTemplate';
+import Timer from '../Timer';
+import TimerAlert from '../TimerAlert';
+import playSound from '../../lib/playSound';
+import { cardColors } from '../../lib/color-data';
+import ModalTemplate from '../../lib/ModalTemplate';
 import UpdateReminderForm from './UpdateReminderForm';
 
-export default function ReminderCard({ reminder }) {
+export default function ReminderCard({ reminder, author }) {
   // setting initial states based on reminder prop
   // this prop is ultimate info from the database
   const _session = reminder.time; // timer session length in minutes
@@ -26,7 +26,7 @@ export default function ReminderCard({ reminder }) {
   const _current = _session * 60; // current time in seconds
 
   // deconstruction reminder prop
-  const { label, alert, author, sound, color } = reminder;
+  const { label, alert, sound, color } = reminder;
 
   // setting local state
   const [isPlaying, setIsPlaying] = useState(_playing);
@@ -137,7 +137,7 @@ export default function ReminderCard({ reminder }) {
           </IconButton>
         }
         title={label} // Reminder label
-        subheader={`Created by: ${author ? author.name : 'Anon'}`} // author name
+        subheader={`Created by: ${author || 'Anon'}`} // author name
       />
 
       <CardContent

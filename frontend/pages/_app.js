@@ -3,7 +3,7 @@
 import React from 'react';
 import Head from 'next/head';
 // import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+// import CssBaseline from '@mui/material/CssBaseline';
 import { ApolloProvider } from '@apollo/client';
 import client from '../apollo-client';
 import Page from '../components/Page';

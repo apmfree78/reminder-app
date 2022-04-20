@@ -1,6 +1,5 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable react/prop-types */
-import { useMutation } from '@apollo/client';
 import {
   Button,
   FormControl,
@@ -12,71 +11,30 @@ import {
   Grid,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import gql from 'graphql-tag';
-import { cardKeys } from '../lib/color-data';
-import { soundKeys } from '../lib/sound-data';
-import useForm from '../lib/useForm';
-import { ALL_REMINDERS_QUERY } from '../pages';
-
-// graphQL mutation to create a new Reminder
-const CREATE_REMINDER_MUTATION = gql`
-  mutation CREATE_REMINDER_MUTATION(
-    $time: Int!
-    $label: String!
-    $alert: String!
-    $color: String!
-    $sound: String!
-  ) {
-    createReminder(
-      data: {
-        time: $time
-        label: $label
-        alert: $alert
-        color: $color
-        sound: $sound
-      }
-    ) {
-      id
-      label
-    }
-  }
-`;
+import { cardKeys } from '../../lib/color-data';
+import { soundKeys } from '../../lib/sound-data';
 
 // min and max time can be set for timer
 const MIN_TIME = 10;
 const MAX_TIME = 120;
 
-// show form to add new Reminder
+// show form to add or Edit Reminder
 // MUST pass closeForm prop, which is a function that is
 // execute to close whatever popup this form shows up in
 // right now it's setup to accept 'closeFrom' from ModalTemplate
 // located in /lib/ModalTemplate.js
-export default function CreateReminderForm({ closeForm }) {
-  // create state for form input and handling
-  // using custom hook useFomr
-  const { inputs, handleChange, clearForm } = useForm({});
-  console.log(inputs);
-
-  // useMutation hook to generate createReminder function
-  // that will create new Reminder
-  const [createReminder, { loading, error }] = useMutation(
-    CREATE_REMINDER_MUTATION,
-    {
-      variables: inputs, // submit form inputs to create new Reminder
-      refetchQueries: [{ query: ALL_REMINDERS_QUERY }], // update apollo cache
-    }
-  );
-  if (loading) return <p>Loading...</p>;
-  if (error) return console.error(error); // catch errors
-  // show Alert success message if Reminder is successfully created
-
-  async function handleSubmit(e) {
-    e.preventDefault(); // prevent default form behavior
-    await createReminder(); // create new reminder using 'inputs' from form
-    console.log('new reminder created!');
-    clearForm();
-    closeForm();
-  }
+export default function CreateReminderForm({
+  time,
+  label,
+  alert,
+  sound,
+  color,
+  handleChange,
+  handleSubmit,
+  loading,
+  buttonTextCTA = 'Submit', // button call to action text
+  children, // pass optional component here that will display below form
+}) {
   // input form to create new Reminder,
   // will take : time (in minutes), title (label), alert message,
   // color , and sound.  all fields are required.  color and
@@ -96,9 +54,9 @@ export default function CreateReminderForm({ closeForm }) {
               inputProps={{ min: MIN_TIME, max: MAX_TIME }}
               variant="filled"
               color="primary"
-              label="Time (in mins)"
               margin="normal"
-              value={inputs.time}
+              label="Time (in mins)"
+              value={time}
               onChange={handleChange}
             />
           </FormControl>
@@ -111,7 +69,7 @@ export default function CreateReminderForm({ closeForm }) {
             color="info"
             label="Short Title"
             margin="normal"
-            value={inputs.label}
+            value={label}
             onChange={handleChange}
           />
           <TextField
@@ -125,7 +83,7 @@ export default function CreateReminderForm({ closeForm }) {
             multiline
             rows={3}
             margin="normal"
-            value={inputs.alert}
+            value={alert}
             onChange={handleChange}
           />
           <FormControl required sx={{ marginTop: 2, width: 200 }}>
@@ -135,7 +93,7 @@ export default function CreateReminderForm({ closeForm }) {
               name="color"
               label="Color"
               color="secondary"
-              value={inputs.color}
+              value={color}
               input={<OutlinedInput label="Color" />}
               onChange={handleChange}
             >
@@ -157,7 +115,7 @@ export default function CreateReminderForm({ closeForm }) {
               name="sound"
               label="Sound"
               color="warning"
-              value={inputs.sound}
+              value={sound}
               input={<OutlinedInput label="sound" />}
               onChange={handleChange}
             >
@@ -177,8 +135,9 @@ export default function CreateReminderForm({ closeForm }) {
             color="success"
             endIcon={<SendIcon />}
           >
-            Create Reminder
+            {buttonTextCTA}
           </Button>
+          {children}
         </Grid>
       </fieldset>
     </form>
