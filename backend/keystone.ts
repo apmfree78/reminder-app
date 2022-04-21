@@ -4,8 +4,12 @@ import {
   withItemData,
   statelessSessions,
 } from '@keystone-next/keystone/session';
-import { User } from './schemas/User';
 import { Reminder } from './schemas/Reminder';
+import { User } from './schemas/User';
+import { Order } from './schemas/Order';
+import { OrderItem } from './schemas/OrderItem';
+import { CartItem } from './schemas/CartItem';
+import { Membership } from './schemas/Membership';
 import 'dotenv/config';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
@@ -57,6 +61,10 @@ export default withAuth(
       // schema items go in here
       User,
       Reminder,
+      Order,
+      OrderItem,
+      CartItem,
+      Membership,
     }),
     ui: {
       // change this for roles
