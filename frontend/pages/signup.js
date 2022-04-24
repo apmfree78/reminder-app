@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material';
-import { Box } from '@mui/system';
 import SignUp from '../components/user/SignUp';
 
 export default function SignUpPage() {

@@ -21,13 +21,20 @@ async function addToCart(
     where: { user: { id: sesh.itemId } },
     resolveFields: 'id,quantity',
   });
-  console.log(allCartItems);
+
   const [existingCartItem] = allCartItems;
+  console.log(existingCartItem?.id);
   // see if there are any items in the cart, cart can only (currently) have 1 item
-  // SO if there is an existing item, returning null, cannot add additional item
-  if (existingCartItem) {
-    console.log(`this item is already in cart`);
-    return null;
+  // SO if there is updating that cart item
+  if (existingCartItem?.id) {
+    console.log(`an item is already in cart,updating it...`);
+    return await context.lists.CartItem.updateOne({
+      id: existingCartItem.id,
+      data: {
+        membership: { connect: { id: membershipId } },
+        user: { connect: { id: sesh.itemId } },
+      },
+    });
   }
   // if it isn't then create a new cart item
   return await context.lists.CartItem.createOne({

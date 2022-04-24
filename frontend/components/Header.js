@@ -68,9 +68,11 @@ export default function Header() {
             >
               Welcome {user.name}!
             </Typography>
-            <Button variant="contained" color="success">
-              UPGRADE TO PRO
-            </Button>
+            <Link href="/upgrade">
+              <Button variant="contained" color="success">
+                UPGRADE
+              </Button>
+            </Link>
             <SignOut>SIGN OUT</SignOut>
           </>
         )}

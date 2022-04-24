@@ -66,14 +66,20 @@ async function checkout(
       throw new Error(err.message);
     });
   console.log(charge);
-  // 4. Convert the cartItems to OrderItems
+  // 4. upgrade user membership in database
+  context.lists.User.updateOne({
+    id: userId,
+    data: {
+      membership: { connect: { id: user.cart[0].membership.id } },
+    },
+  });
+  // 5. Convert the cartItems to OrderItems
   const orderItems = cartItems.map((cartItem) => {
     const orderItem = {
       name: cartItem.membership.name,
       description: cartItem.membership.description,
       price: cartItem.membership.price,
       quantity: cartItem.quantity,
-      photo: { connect: { id: cartItem.membership.photo.id } },
     };
     return orderItem;
   });

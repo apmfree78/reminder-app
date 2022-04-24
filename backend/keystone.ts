@@ -4,6 +4,7 @@ import {
   withItemData,
   statelessSessions,
 } from '@keystone-next/keystone/session';
+import { extendGraphqlSchema } from './mutations/index';
 import { Reminder } from './schemas/Reminder';
 import { User } from './schemas/User';
 import { Order } from './schemas/Order';
@@ -66,6 +67,7 @@ export default withAuth(
       CartItem,
       Membership,
     }),
+    extendGraphqlSchema,
     ui: {
       // change this for roles
       // Show the UI only for people that pass this test
