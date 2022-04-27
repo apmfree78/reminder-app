@@ -63,7 +63,7 @@ export default function OrderPage() {
         <div>
           {order.items.map((item) => (
             <div key={item.id}>
-              <h2>
+              <h2 key={item.id}>
                 Plan: {item.name.toUpperCase()} (Price:
                 {formatMoney(item.price)})
               </h2>

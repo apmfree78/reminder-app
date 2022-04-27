@@ -44,10 +44,7 @@ function CheckoutForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [checkout, { error: graphQLError }] = useMutation(
-    CREATE_ORDER_MUTATION,
-    {
-      refetchQueries: { query: CURRENT_USER_QUERY },
-    }
+    CREATE_ORDER_MUTATION
   );
 
   const stripe = useStripe();
@@ -70,13 +67,13 @@ function CheckoutForm() {
     }
     // 4. sent the token from step 4 to our keystone server via a custom mutation
     const order = await checkout({
-      variables: {
-        token: paymentMethod.id,
-      },
+      variables: { token: paymentMethod.id },
+      refetchQueries: [{ query: CURRENT_USER_QUERY }],
     });
     console.log('Completed Order!');
     console.log(order);
     // 5. Change the page to view the order
+    console.log(`redirecting to:/order/${order.data.checkout.id}`);
     router.push({
       pathname: `/order/[id]`,
       query: { id: order.data.checkout.id },

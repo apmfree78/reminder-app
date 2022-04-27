@@ -3,18 +3,29 @@
 // eslint-disable-next-line import/no-cycle
 import { useQuery } from '@apollo/client';
 import { Container, Grid, Typography } from '@mui/material';
+import { useState } from 'react';
 import ReminderCard from '../components/reminder/ReminderCard';
 import { CURRENT_USER_QUERY } from '../components/user/User';
 import AddReminderButton from '../components/reminder/AddReminderButton';
 // import client from '../apollo-client';
 
 export default function Home() {
+  // set state variable to track number of reminders user has
+  // if user hits the limit set by their membership plan
+  // then they cannot create any more reminders
+  const [reminderCount, setReminderCount] = useState(0);
+
   // fetching data from database using GraphQL API call
+  // const user = useUser();
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
   if (loading) return <p>Loading...</p>;
   if (error) return console.error(error);
+  // extracting user data
+  const user = data?.authenticatedItem;
+  // extracting number of reminders user has
+  if (user?.reminder?.length) setReminderCount(user.reminder.length);
   //  if user is not logged in, direct them to do so
-  if (!data.authenticatedItem)
+  if (!user)
     return (
       <Grid
         container
@@ -27,10 +38,8 @@ export default function Home() {
         </Typography>
       </Grid>
     );
-  console.log('hello');
-  // deconstructing name of user, id of user, and their reminder cards
-
-  const { id, name, reminders } = data.authenticatedItem;
+  // destructuring name of user, id of user, and their reminder cards
+  const { id, name, reminders } = user;
   return (
     // rendering each Reminder Card on the screen
     <Container sx={{ p: 2 }} maxWidth="lg">

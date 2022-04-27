@@ -42,12 +42,6 @@ const CREATE_REMINDER_MUTATION = gql`
 // located in /lib/ModalTemplate.js
 // id => id of current user
 export default function CreateReminderForm({ id, closeForm }) {
-  // fetching current user
-  // const { data, userLoading, userError } = useQuery(CURRENT_USER_QUERY);
-  // deconstructing name, and id of user and their reminder cards
-  // const { id, name } = data.authenticatedItem;
-  // console.log(`name: ${name}, id: ${id}`);
-
   // create state for form input and handling
   // using custom hook useFomr
   const { inputs, handleChange, clearForm } = useForm({

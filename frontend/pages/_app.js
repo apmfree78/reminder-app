@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import client from '../apollo-client';
 import Page from '../components/Page';
+// import { UserProvider } from '../components/user/userState';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -19,7 +20,6 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <ApolloProvider client={client}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <Page>
           <Component {...pageProps} />
         </Page>

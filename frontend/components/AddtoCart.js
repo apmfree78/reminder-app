@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
-import { CURRENT_USER_QUERY } from './user/User';
+import { CURRENT_USER_QUERY } from './user/userState';
 
 // graphQL mutation to add memberhship to cart
 const ADD_TO_CART = gql`
@@ -39,7 +39,7 @@ export default function AddtoCart({ plan, addedToCart, children }) {
       onClick={() => {
         addToCart({
           variables: { id: plan.id },
-          refetchQueries: { query: CURRENT_USER_QUERY },
+          refetchQueries: [{ query: CURRENT_USER_QUERY }],
         }); // add membership to cart with custom mutation
         addedToCart(plan); // set state so we know membership is added to cart
       }}

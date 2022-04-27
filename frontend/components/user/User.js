@@ -17,6 +17,10 @@ export const CURRENT_USER_QUERY = gql`
           color
           sound
         }
+        membership {
+          id
+          name
+        }
         cart {
           id
           quantity
@@ -33,9 +37,11 @@ export const CURRENT_USER_QUERY = gql`
 
 // export current logged in user, if none returns 'null'
 export function useUser() {
-  const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
+  const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
+    update,
+  });
   if (loading) return 'Loading...';
   if (error) return console.error(error);
-  // console.log(data?.authenticatedItem);
+  console.log(data?.authenticatedItem);
   return data?.authenticatedItem;
 }
