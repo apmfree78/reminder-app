@@ -7,6 +7,7 @@ import {
 import { extendGraphqlSchema } from './mutations/index';
 import { Reminder } from './schemas/Reminder';
 import { User } from './schemas/User';
+import { Role } from './schemas/Roles';
 import { Order } from './schemas/Order';
 import { OrderItem } from './schemas/OrderItem';
 import { CartItem } from './schemas/CartItem';
@@ -14,6 +15,7 @@ import { Membership } from './schemas/Membership';
 import 'dotenv/config';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
+import { permissionsList } from './schemas/fields';
 
 const databaseURL = process.env.DATABASE_URL;
 console.log(databaseURL);
@@ -66,6 +68,7 @@ export default withAuth(
       OrderItem,
       CartItem,
       Membership,
+      Role,
     }),
     extendGraphqlSchema,
     ui: {
@@ -78,7 +81,7 @@ export default withAuth(
     // add session values here
     session: withItemData(statelessSessions(sessionConfig), {
       // GraphQL query
-      User: 'id',
+      User: `id name email role { ${permissionsList.join(' ')} }`,
     }),
   })
 );

@@ -6,8 +6,15 @@ import {
   timestamp,
   select,
 } from '@keystone-next/fields';
+import { isSignedIn, rules } from '../access';
 
 export const Reminder = list({
+  access: {
+    create: isSignedIn,
+    read: rules.canReadReminders,
+    update: rules.canManageReminders,
+    delete: rules.canManageReminders,
+  },
   fields: {
     time: integer({
       defaultValue: 30,

@@ -5,7 +5,7 @@ import ModalTemplate from '../../lib/ModalTemplate';
 import CreateReminderForm from './CreateReminderForm';
 
 // BIG button pops up form to add a new Reminder when users clicks it
-export default function AddReminderButton({ id }) {
+export default function AddReminderButton({ id, disabled }) {
   const [createReminder, setCreateReminder] = useState(false);
   return (
     <>
@@ -32,7 +32,7 @@ export default function AddReminderButton({ id }) {
         md={3}
       >
         {/* Click big '+' and Modal popup will show from to add new Reminder   */}
-        <Button onClick={() => setCreateReminder(true)}>
+        <Button disabled={disabled} onClick={() => setCreateReminder(true)}>
           {/* + icon  */}
           <AddBoxIcon sx={{ fontSize: 80 }} />
         </Button>
