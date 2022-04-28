@@ -34,6 +34,15 @@ export const rules = {
     // if not , do they own this item
     return { user: { id: session.itemId } };
   },
+  canManageMemberships({ session }) {
+    if (!isSignedIn({ session })) return false;
+    // do they have the permission of canManageReminders
+    if (permissions.canManageMemberships({ session })) {
+      return true;
+    }
+    // if not , do they own this item
+    return { user: { id: session.itemId } };
+  },
   canOrder({ session }) {
     if (!isSignedIn({ session })) return false;
     // do they have the permission of canManageReminders

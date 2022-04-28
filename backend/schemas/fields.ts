@@ -5,6 +5,10 @@ export const permissionFields = {
     defaultValue: false,
     label: 'User can Update and delete any reminder',
   }),
+  canManageMemberships: checkbox({
+    defaultValue: false,
+    label: 'User can Add, Remove, or Update Memberships Levels',
+  }),
   canSeeOtherUsers: checkbox({
     defaultValue: false,
     label: 'User can query other users',

@@ -1,7 +1,19 @@
 import { integer, relationship, select, text } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
+import { permissions } from '../access';
 
 export const Membership = list({
+  access: {
+    create: permissions.canManageMemberships,
+    read: () => true,
+    update: permissions.canManageMemberships,
+    delete: permissions.canManageMemberships,
+  },
+  ui: {
+    hideCreate: (args) => !permissions.canManageMemberships(args),
+    hideDelete: (args) => !permissions.canManageMemberships(args),
+    isHidden: (args) => !permissions.canManageRoles(args),
+  },
   fields: {
     name: select({
       options: [

@@ -15,7 +15,7 @@ import { cardKeys } from '../../lib/color-data';
 import { soundKeys } from '../../lib/sound-data';
 
 // min and max time can be set for timer
-const MIN_TIME = 10;
+const MIN_TIME = 1;
 const MAX_TIME = 120;
 
 // show form to add or Edit Reminder
