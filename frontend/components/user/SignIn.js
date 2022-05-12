@@ -27,6 +27,8 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
+// sign in user, also passing 'closeForm' as prop that
+// will close the pop up form once sign out is complete
 export default function SignIn({ closeForm, children }) {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',

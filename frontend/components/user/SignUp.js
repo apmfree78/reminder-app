@@ -21,6 +21,7 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
+// sign up new user save info to database
 export default function SignUp() {
   const { inputs, handleChange, resetForm } = useForm({
     name: '',

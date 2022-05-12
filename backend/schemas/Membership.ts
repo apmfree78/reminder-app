@@ -37,6 +37,11 @@ export const Membership = list({
     }),
     price: integer({ isRequired: true, isUnique: true }),
     user: relationship({ ref: 'User.membership', many: true }),
+    /*     reminders: integer({
+      isRequired: true,
+      isUnique: true,
+      defaultValue: 4,
+    }), */
   },
   ui: {
     listView: {

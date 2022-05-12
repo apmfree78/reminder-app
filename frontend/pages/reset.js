@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import RequestReset from '../components/user/RequestReset';
 import Reset from '../components/user/Reset';
 
+// reset password page
 export default function ResetPage() {
   const { query } = useRouter();
 

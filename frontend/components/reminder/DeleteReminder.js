@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { Button } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import Swal from 'sweetalert2';
 
 // graphQl mutation to delete Reminder
 const DELETE_REMINDER = gql`
@@ -39,6 +40,12 @@ export default function DeleteReminder({ id, closeForm, children }) {
           // go ahead and delete it
           deleteReminder().catch((err) => alert(err.message));
           closeForm();
+          Swal.fire({
+            icon: 'error',
+            title: 'Its Gone!',
+            text: 'Reminder Deleted!',
+            timer: 5000,
+          });
         }
       }}
     >

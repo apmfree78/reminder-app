@@ -36,9 +36,9 @@ export const CURRENT_USER_QUERY = gql`
 `;
 
 // export current logged in user, if none returns 'null'
-export function useUser() {
+function useUser() {
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
-    update,
+    fetchPolicy: 'cache-and-network',
   });
   if (loading) return 'Loading...';
   if (error) return console.error(error);

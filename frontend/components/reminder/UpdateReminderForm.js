@@ -4,8 +4,9 @@
 /* eslint-disable react/prop-types */
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
+import Swal from 'sweetalert2';
 import useForm from '../../lib/useForm';
-import { ALL_REMINDERS_QUERY } from '../../pages';
+import { CURRENT_USER_QUERY } from '../user/User';
 import DeleteReminder from './DeleteReminder';
 import ReminderFormTemplate from './ReminderFormTemplate';
 
@@ -59,14 +60,21 @@ export default function UpdateReminderForm({ reminder, closeForm }) {
 
   async function handleSubmit(e) {
     e.preventDefault(); // prevent default form behavior
-    // create new reminder using 'inputs' from form
+    // update reminder using 'inputs' from form
     await updateReminder({
       variables: { id: reminder.id, ...inputs }, // submit form inputs to create new Reminder
-      refetchQueries: [{ query: ALL_REMINDERS_QUERY }], // update apollo cache
+      refetchQueries: [{ query: CURRENT_USER_QUERY }], // update apollo cache
     }).catch(console.error);
-
+    const reminderName = inputs.label;
     clearForm();
     closeForm();
+    // show success message
+    Swal.fire({
+      icon: 'success',
+      title: 'Changes Made!',
+      text: `${reminderName} Reminder Sucessfully Updated!`,
+      timer: 5000,
+    });
   }
   // input form to Update Reminder,
   // will take : time (in minutes), title (label), alert message,

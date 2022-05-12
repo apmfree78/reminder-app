@@ -4,6 +4,7 @@ import { Grid } from '@mui/material';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
+import Swal from 'sweetalert2';
 import formatMoney from '../../lib/formatMoney';
 import ErrorMessage from '../../components/ErrorMessage';
 
@@ -32,6 +33,13 @@ export default function OrderPage() {
   if (loading) return <p>Loading...</p>;
   if (error) return <ErrorMessage error={error} />;
   const { order } = data;
+  const membershipLevel = order.items[0].name.toUpperCase();
+  Swal.fire({
+    icon: 'success',
+    title: 'Congradulations!',
+    text: `You're now a ${membershipLevel} member!`,
+    time: 5000,
+  });
 
   // printing order reciept to page
   return (
@@ -47,7 +55,7 @@ export default function OrderPage() {
         sx={{ p: 2, fontSize: 16 }}
       >
         <h2>Thank You For Your Order</h2>
-        <h4>You have been upgraded to {order.items[0].name.toUpperCase()}</h4>
+        <h4>You have been upgraded to {membershipLevel}</h4>
         <p>
           <span>Order ID: </span>
           <span>{order.id}</span>

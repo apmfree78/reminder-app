@@ -16,9 +16,6 @@ function useMemberships() {
   // extract membership info from database
   const { data, loading, error } = useQuery(ALL_MEMBERSHIPS);
 
-  if (loading) return 'Loading...';
-  if (error) return console.error(error);
-
   // converting query data to nice clean object where
   // indices are membership names and values are ids
   const memberData = data?.allMemberships;
@@ -28,7 +25,7 @@ function useMemberships() {
     }))
     .reduce((tally, item) => ({ ...tally, ...item }));
   console.log(memberships);
-  return memberships;
+  return { memberships, loading, error };
 }
 
 export default useMemberships;

@@ -40,6 +40,8 @@
     "react-dom": "^17.0.1",
     "react-transition-group": "^4.4.1",
     "styled-components": "^5.2.1",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.4.13",
     "waait": "^1.0.5"
   },
   "devDependencies": {

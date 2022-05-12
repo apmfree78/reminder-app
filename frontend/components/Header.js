@@ -10,20 +10,21 @@ import ModalTemplate from '../lib/ModalTemplate';
 import SignIn from './user/SignIn';
 import PasswordReset from './user/RequestReset';
 
-// App main header
+// Blue Appbar Header you see at the top
 export default function Header() {
   // show sign in modal pop up ?
   const [signIn, showSignIn] = useState(false);
-  // query for current user from UserProvider!!
+  // query for current user
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY, {
     fetchPolicy: 'cache-and-network',
   });
+  // checking loading state and for errors
   if (loading) return <p>Loading...</p>;
   if (error) return console.error(error);
+  // extracting user info and membership level from database query
   const user = data?.authenticatedItem;
-  // const user = useUser();
   const membershipLevel = user?.membership?.name;
-  console.log(membershipLevel);
+
   return (
     <AppBar position="static">
       {/* show sign in modal pop up if user clicked on sign in link  */}

@@ -39,6 +39,11 @@ const CREATE_ORDER_MUTATION = gql`
 
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 console.log(`STRIPE KEY: ${process.env.NEXT_PUBLIC_STRIPE_KEY}`);
+
+// checkout user with stripe using custom graphQL mutation 'checkout'
+// see backend for more info.  User is immediately upgraded to new
+// plan and membership they upgraded to is removed from cart
+// user is then redirect to order page with their order details
 function CheckoutForm() {
   const [stripeError, setError] = useState();
   const [loading, setLoading] = useState(false);

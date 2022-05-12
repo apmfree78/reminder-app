@@ -32,7 +32,7 @@ export const rules = {
       return true;
     }
     // if not , do they own this item
-    return { user: { id: session.itemId } };
+    return { author: { id: session.itemId } };
   },
   canManageMemberships({ session }) {
     if (!isSignedIn({ session })) return false;

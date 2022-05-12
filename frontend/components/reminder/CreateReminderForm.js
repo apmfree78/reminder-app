@@ -4,6 +4,7 @@
 /* eslint-disable react/prop-types */
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
+import Swal from 'sweetalert2';
 import useForm from '../../lib/useForm';
 import { CURRENT_USER_QUERY } from '../user/User';
 import ReminderFormTemplate from './ReminderFormTemplate';
@@ -73,8 +74,16 @@ export default function CreateReminderForm({ id, closeForm }) {
   async function handleSubmit(e) {
     e.preventDefault(); // prevent default form behavior
     await createReminder(); // create new reminder using 'inputs' from form
+    const reminderName = inputs.label;
     clearForm();
     closeForm();
+    // show success message
+    Swal.fire({
+      icon: 'success',
+      title: 'Woho!!!',
+      text: `${reminderName} Reminder Sucessfully Created!`,
+      timer: 5000,
+    });
   }
   // input form to create new Reminder,
   // will take : time (in minutes), title (label), alert message,
