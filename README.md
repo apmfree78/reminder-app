@@ -15,7 +15,7 @@ All data is saved to MongoDB database.
 
 Entire frontend design done using Material UI.
 
-## Full User Login and aAuthentication
+## Full User Login and Authentication
 
 Includes user sign in, login, logout, password reset (going to user email), and
 persistant session that detect user reminders and show them when user is logged
