@@ -18,7 +18,7 @@ import { sendPasswordResetEmail } from './lib/mail';
 import { permissionsList } from './schemas/fields';
 
 const databaseURL = process.env.DATABASE_URL;
-console.log(databaseURL);
+// console.log(databaseURL);
 
 const sessionConfig = {
   maxAge: 60 * 60 * 24 * 30, // how long is user signed in

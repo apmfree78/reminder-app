@@ -43,3 +43,16 @@ export async function sendPasswordResetEmail(
     console.log('Message Sent!');
   }
 }
+
+export async function sendAlertEmail(alert: string, to: string): Promise<void> {
+  // email user a token
+  const info = await transport.sendMail({
+    to,
+    from: 'amit@profitswami.com',
+    subject: alert,
+    html: makeANiceEmail(`Your timer is complete: ${alert}`),
+  });
+  if (process.env.MAIL_USER.includes('ethereal.email')) {
+    console.log('Message Sent!');
+  }
+}
