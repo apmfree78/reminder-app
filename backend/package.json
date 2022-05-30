@@ -5,6 +5,8 @@
   "author": "Amit Mehta",
   "license": "MIT",
   "scripts": {
+    "start": "keystone-next start",
+    "build": "keystone-next build",
     "dev": "keystone-next",
     "seed-data": "keystone-next --seed-data"
   },
@@ -71,5 +73,5 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "repository": "https://github.com/wesbos/advanced-react"
+  "repository": "https://github.com/apmfree78/reminder-app"
 }
