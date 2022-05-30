@@ -5,7 +5,8 @@ import Head from 'next/head';
 // import { ThemeProvider } from '@material-ui/core/styles';
 // import CssBaseline from '@mui/material/CssBaseline';
 import { ApolloProvider } from '@apollo/client';
-import client from '../apollo-client';
+import withData from '../lib/withData';
+// import client from '../apollo-client';
 import Page from '../components/Page';
 // import { UserProvider } from '../components/user/userState';
 
@@ -19,7 +20,7 @@ function MyApp({ Component, pageProps, apollo }) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apollo}>
         <Page>
           <Component {...pageProps} />
         </Page>
@@ -37,4 +38,4 @@ MyApp.getInitialProps = async function ({ Component, ctx }) {
   return { pageProps };
 };
 
-export default MyApp;
+export default withData(MyApp);
