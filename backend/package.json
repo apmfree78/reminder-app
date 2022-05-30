@@ -71,7 +71,8 @@
     "typescript": "^4.1.2"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=14.0.0",
+    "npm": "8.5.0"
   },
   "repository": "https://github.com/apmfree78/reminder-app"
 }
