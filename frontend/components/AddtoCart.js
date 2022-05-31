@@ -63,8 +63,8 @@ export default function AddtoCart({ plan, setShowCheckout, title, children }) {
             addToCart({
               variables: { id: plan.id },
               refetchQueries: [{ query: CURRENT_USER_QUERY }],
-            }); // add membership to cart with custom mutation
-            setShowCheckout(true); // set state so we know membership is added to cart
+            });
+            setShowCheckout(true);
           }}
         >
           {title}

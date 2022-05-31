@@ -122,12 +122,6 @@ export default function ReminderCard({ reminder, author }) {
         </ModalTemplate>
       )}
       <CardHeader
-        /*        avatar={ 
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            T
-          </Avatar>
-        } */
-        // gear to adjust settings
         action={
           <IconButton
             aria-label="settings"
@@ -136,8 +130,8 @@ export default function ReminderCard({ reminder, author }) {
             <SettingsIcon />
           </IconButton>
         }
-        title={label} // Reminder label
-        subheader={`Created by: ${author || 'Anon'}`} // author name
+        title={label}
+        subheader={`Created by: ${author || 'Anon'}`}
       />
 
       <CardContent

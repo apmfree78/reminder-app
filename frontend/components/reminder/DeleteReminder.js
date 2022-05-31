@@ -37,7 +37,6 @@ export default function DeleteReminder({ id, closeForm, children }) {
       disabled={loading}
       onClick={() => {
         if (confirm('Are you sure want to delete this item?')) {
-          // go ahead and delete it
           deleteReminder().catch((err) => alert(err.message));
           closeForm();
           Swal.fire({
