@@ -19,6 +19,7 @@ export const User = list({
     email: text({ isRequired: true, isUnique: true }),
     password: password(),
     reminders: relationship({ ref: 'Reminder.author', many: true }),
+    pomodoros: relationship({ ref: 'Pomodoro.author', many: true }),
     membership: relationship({
       ref: 'Membership.user',
       defaultValue: { connect: { id: '6261884fc844520b4798d7eb' } }, // setting default to free membership

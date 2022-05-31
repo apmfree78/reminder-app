@@ -9,7 +9,7 @@ import {
 import { cardFields } from './fields';
 import { isSignedIn, rules } from '../access';
 
-export const Reminder = list({
+export const Pomodoro = list({
   access: {
     create: isSignedIn,
     read: () => true,
@@ -17,14 +17,17 @@ export const Reminder = list({
     delete: rules.canManageTimers,
   },
   fields: {
-    label: text(),
-    time: integer({
+    session: integer({
+      defaultValue: 30,
+      isRequired: true,
+    }), // timer time in seconds
+    break: integer({
       defaultValue: 30,
       isRequired: true,
     }), // timer time in seconds
     ...cardFields,
     author: relationship({
-      ref: 'User.reminders',
+      ref: 'User.pomodoros',
       ui: {
         displayMode: 'cards',
         cardFields: ['name', 'email'],
@@ -37,7 +40,7 @@ export const Reminder = list({
   },
   ui: {
     listView: {
-      initialColumns: ['label', 'time', 'alert', 'author'],
+      initialColumns: ['session', 'break', 'alert', 'author'],
     },
   },
 });

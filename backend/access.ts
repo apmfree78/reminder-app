@@ -25,10 +25,10 @@ export const permissions = { ...generatedPermissions };
 //  Rules can return a boolean (yes/no) or a filter which
 // limits which Reminders they can access and CRUD
 export const rules = {
-  canManageReminders({ session }) {
+  canManageTimers({ session }) {
     if (!isSignedIn({ session })) return false;
     // do they have the permission of canManageReminders
-    if (permissions.canManageReminders({ session })) {
+    if (permissions.canManageTimers({ session })) {
       return true;
     }
     // if not , do they own this item
@@ -62,13 +62,13 @@ export const rules = {
     // if not , do they own this item
     return { order: { user: { id: session.itemId } } };
   },
-  canReadReminders({ session }: ListAccessArgs) {
+  canReadTimers({ session }: ListAccessArgs) {
     if (!isSignedIn({ session })) return false;
     return true;
   },
   canManageUsers({ session }) {
     if (!isSignedIn({ session })) return false;
-    // do they have the permission of canManageReminders
+    // do they have the permission of canManageTimers
     if (permissions.canManageUsers({ session })) {
       return true;
     }
