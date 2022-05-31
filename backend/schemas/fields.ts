@@ -1,4 +1,45 @@
-import { checkbox } from '@keystone-next/fields';
+import { checkbox, timestamp, select, text } from '@keystone-next/fields';
+
+export const cardFields = {
+  label: text(),
+  alert: text({
+    ui: {
+      displayMode: 'textarea',
+    },
+  }),
+  color: select({
+    options: [
+      { label: 'Silver', value: 'silver' },
+      { label: 'Blue', value: 'blue' },
+      { label: 'Red', value: 'red' },
+      { label: 'Green', value: 'green' },
+      { label: 'Orange', value: 'orange' },
+      { label: 'White', value: 'white' },
+    ],
+    // We want to make sure new posts start off as a draft when they are created
+    defaultValue: 'silver',
+    // fields also have the ability to configure their appearance in the Admin UI
+    ui: {
+      displayMode: 'segmented-control',
+    },
+  }),
+  sound: select({
+    options: [
+      { label: 'Bell', value: 'bell' },
+      { label: 'Chimes', value: 'chimes' },
+      { label: 'Gong', value: 'gong' },
+      { label: 'Beep', value: 'beep' },
+      { label: 'Jingle', value: 'jingle' },
+    ],
+    // We want to make sure new posts start off as a draft when they are created
+    defaultValue: 'bell',
+    // fields also have the ability to configure their appearance in the Admin UI
+    ui: {
+      displayMode: 'segmented-control',
+    },
+  }),
+  publishDate: timestamp({ defaultValue: Date() }),
+};
 
 export const permissionFields = {
   canManageReminders: checkbox({
