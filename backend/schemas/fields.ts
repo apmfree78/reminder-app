@@ -1,11 +1,6 @@
 import { checkbox, timestamp, select, text } from '@keystone-next/fields';
 
 export const cardFields = {
-  alert: text({
-    ui: {
-      displayMode: 'textarea',
-    },
-  }),
   color: select({
     options: [
       { label: 'Silver', value: 'silver' },

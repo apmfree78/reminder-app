@@ -17,6 +17,11 @@ export const Reminder = list({
     delete: rules.canManageTimers,
   },
   fields: {
+    alert: text({
+      ui: {
+        displayMode: 'textarea',
+      },
+    }),
     label: text(),
     time: integer({
       defaultValue: 30,
