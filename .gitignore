@@ -9,3 +9,6 @@ variables.env
 *.env
 .keystone
 *.db
+
+# Local Netlify folder
+.netlify
