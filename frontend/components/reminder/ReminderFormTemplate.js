@@ -16,7 +16,7 @@ import { soundKeys } from '../../lib/sound-data';
 
 // min and max time can be set for timer
 const MIN_TIME = 1;
-const MAX_TIME = 120;
+const MAX_TIME = 10000;
 
 // show form to add or Edit Reminder
 // MUST pass closeForm prop, which is a function that is

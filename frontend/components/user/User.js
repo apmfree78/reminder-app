@@ -17,6 +17,13 @@ export const CURRENT_USER_QUERY = gql`
           color
           sound
         }
+        pomodoros {
+          id
+          session
+          break
+          color
+          sound
+        }
         membership {
           id
           name
