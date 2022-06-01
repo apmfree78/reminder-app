@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client';
 import { Container, Grid, Typography } from '@mui/material';
 import { useState } from 'react';
 import ReminderCard from '../components/reminder/ReminderCard';
+import PomodoroCard from '../components/pomodoro/PomodoroCard';
 import { CURRENT_USER_QUERY } from '../components/user/User';
 import AddReminderButton from '../components/reminder/AddReminderButton';
 import { membershipLocal } from '../lib/membership-data';
@@ -58,7 +59,7 @@ export default function Home() {
     );
 
   // destructuring name of user, id of user, and their reminder cards
-  const { id, name, reminders } = user;
+  const { id, name, reminders, pomodoros } = user;
   return (
     // rendering each Reminder Card on the screen
     <Container sx={{ p: 2 }} maxWidth="lg">
@@ -68,6 +69,11 @@ export default function Home() {
         {reminders.map((reminder) => (
           <Grid key={reminder.id} item xs={6} sm={4} md={3}>
             <ReminderCard key={reminder.id} reminder={reminder} author={name} />
+          </Grid>
+        ))}
+        {pomodoros.map((pomodoro) => (
+          <Grid key={pomodoro.id} item xs={6} sm={4} md={3}>
+            <PomodoroCard key={pomodoro.id} pomodoro={pomodoro} author={name} />
           </Grid>
         ))}
         {/* final element is '+' button to add new Reminder Card

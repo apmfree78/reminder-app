@@ -1,11 +1,6 @@
-import { checkbox, select, timestamp, text } from '@keystone-next/fields';
+import { checkbox, timestamp, select, text } from '@keystone-next/fields';
 
 export const cardFields = {
-  alert: text({
-    ui: {
-      displayMode: 'textarea',
-    },
-  }),
   color: select({
     options: [
       { label: 'Silver', value: 'silver' },
@@ -37,12 +32,11 @@ export const cardFields = {
       displayMode: 'segmented-control',
     },
   }),
-
   publishDate: timestamp({ defaultValue: Date() }),
 };
 
 export const permissionFields = {
-  canManageReminders: checkbox({
+  canManageTimers: checkbox({
     defaultValue: false,
     label: 'User can Update and delete any reminder',
   }),

@@ -6,6 +6,7 @@ import {
 } from '@keystone-next/keystone/session';
 import { extendGraphqlSchema } from './mutations/index';
 import { Reminder } from './schemas/Reminder';
+import { Pomodoro } from './schemas/Pomodoro';
 import { User } from './schemas/User';
 import { Role } from './schemas/Roles';
 import { Order } from './schemas/Order';
@@ -69,6 +70,7 @@ export default withAuth(
       CartItem,
       Membership,
       Role,
+      Pomodoro,
     }),
     extendGraphqlSchema,
     ui: {
