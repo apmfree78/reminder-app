@@ -9,7 +9,7 @@ export default function ResetPage() {
   const { query } = useRouter();
 
   if (!query?.token) {
-    console.log(query);
+    // console.log(query);
     return (
       <Grid
         container

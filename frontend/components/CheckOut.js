@@ -38,7 +38,6 @@ const CREATE_ORDER_MUTATION = gql`
 `;
 
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
-console.log(`STRIPE KEY: ${process.env.NEXT_PUBLIC_STRIPE_KEY}`);
 
 // checkout user with stripe using custom graphQL mutation 'checkout'
 // see backend for more info.  User is immediately upgraded to new
@@ -64,7 +63,7 @@ function CheckoutForm() {
       type: 'card',
       card: elements.getElement(CardElement),
     });
-    console.log(paymentMethod);
+    // console.log(paymentMethod);
     // 3. handle any errors from stripe (token returned if successful)
     if (error) {
       setError(error);
@@ -76,7 +75,7 @@ function CheckoutForm() {
       refetchQueries: [{ query: CURRENT_USER_QUERY }],
     });
     console.log('Completed Order!');
-    console.log(order);
+    // console.log(order);
     // 5. Change the page to view the order
     console.log(`redirecting to:/order/${order.data.checkout.id}`);
     router.push({

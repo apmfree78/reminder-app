@@ -16,7 +16,6 @@ const DELETE_REMINDER = gql`
 
 // remove Reminder directly from cache
 function update(cache, payload) {
-  console.log(`payload : ${payload}`);
   console.log('running the update function after the delete');
   cache.evict(cache.identify(payload.data.deleteReminder));
 }

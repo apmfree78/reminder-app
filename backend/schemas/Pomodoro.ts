@@ -22,7 +22,7 @@ export const Pomodoro = list({
       isRequired: true,
     }), // timer time in seconds
     break: integer({
-      defaultValue: 30,
+      defaultValue: 5,
       isRequired: true,
     }), // timer time in seconds
     ...cardFields,
@@ -40,7 +40,7 @@ export const Pomodoro = list({
   },
   ui: {
     listView: {
-      initialColumns: ['session', 'break', 'alert', 'author'],
+      initialColumns: ['session', 'break', 'author'],
     },
   },
 });

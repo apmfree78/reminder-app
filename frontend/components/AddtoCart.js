@@ -28,8 +28,7 @@ const ADD_TO_CART = gql`
 // see backend folder to see this
 export default function AddtoCart({ plan, setShowCheckout, title, children }) {
   // executing graphQL to add requested membership to user cart
-  console.log(plan);
-  console.log(plan.id);
+
   const [addToCart, { loading }] = useMutation(ADD_TO_CART);
 
   if (loading) return 'Loading...';

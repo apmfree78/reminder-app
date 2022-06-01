@@ -123,9 +123,9 @@ export default function PomodoroCard({ pomodoro, author }) {
         <ModalTemplate
           open={openSettings}
           setOpen={setOpenSettings}
-          message={`Edit ${pomodoro.label} pomodoro`}
+          message={`Edit ${title}`}
         >
-          <UpdatepomodoroForm pomodoro={pomodoro} />
+          <UpdatePomodoroForm pomodoro={pomodoro} />
         </ModalTemplate>
       )} */}
       <CardHeader

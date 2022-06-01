@@ -13,6 +13,9 @@ export const User = list({
   ui: {
     hideCreate: (args) => !permissions.canManageUsers(args),
     hideDelete: (args) => !permissions.canManageUsers(args),
+    listView: {
+      initialColumns: ['name', 'reminders', 'pomodoros', 'membership'],
+    },
   },
   fields: {
     name: text({ isRequired: true }),
@@ -41,10 +44,5 @@ export const User = list({
         itemView: { fieldMode: 'read' },
       },
     }),
-  },
-  ui: {
-    listView: {
-      initialColumns: ['name', 'reminders', 'membership'],
-    },
   },
 });
