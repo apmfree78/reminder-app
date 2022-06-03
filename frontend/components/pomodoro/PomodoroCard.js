@@ -16,7 +16,7 @@ import TimerAlert from '../TimerAlert';
 import playSound from '../../lib/playSound';
 import { cardColors } from '../../lib/color-data';
 import ModalTemplate from '../../lib/ModalTemplate';
-// import UpdatepomodoroForm from '../pomodoro/UpdatePomodoroForm';
+import UpdatePomodoroForm from '../pomodoro/UpdatePomodoroForm';
 
 export default function PomodoroCard({ pomodoro, author }) {
   // setting initial states based on pomodoro prop
@@ -119,7 +119,7 @@ export default function PomodoroCard({ pomodoro, author }) {
       }}
     >
       {/* display settings modal to change pomodoro Settings  */}
-      {/* {openSettings && (
+      {openSettings && (
         <ModalTemplate
           open={openSettings}
           setOpen={setOpenSettings}
@@ -127,7 +127,7 @@ export default function PomodoroCard({ pomodoro, author }) {
         >
           <UpdatePomodoroForm pomodoro={pomodoro} />
         </ModalTemplate>
-      )} */}
+      )} 
       <CardHeader
         // gear to adjust settings
         action={
