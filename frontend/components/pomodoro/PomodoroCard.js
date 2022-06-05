@@ -148,9 +148,9 @@ export default function PomodoroCard({ pomodoro, author }) {
         {/*         Display current time on timer
         sending current time to timer component which will return formatted time */}
         <Typography
-          variant="h4"
+          variant="h6"
           color="text.primary"
-          sx={{ fontStyle: 'italic' }}
+          sx={{ fontStyle: 'italic', fontWeight: 'bold' }}
         >
           {mode}
         </Typography>

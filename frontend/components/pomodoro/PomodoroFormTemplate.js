@@ -23,7 +23,7 @@ const MAX_TIME = 10000;
 // execute to close whatever popup this form shows up in
 // right now it's setup to accept 'closeFrom' from ModalTemplate
 // located in /lib/ModalTemplate.js
-export default function CreatePomodoroForm({
+export default function PomodoroFormTemplate({
   session,
   break: breakTime,
   sound,

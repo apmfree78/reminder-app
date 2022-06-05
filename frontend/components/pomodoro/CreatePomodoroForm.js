@@ -7,60 +7,58 @@ import gql from 'graphql-tag';
 import Swal from 'sweetalert2';
 import useForm from '../../lib/useForm';
 import { CURRENT_USER_QUERY } from '../user/User';
-import ReminderFormTemplate from './ReminderFormTemplate';
+import PomodoroFormTemplate from './PomodoroFormTemplate';
 
-// graphQL mutation to create a new Reminder
+// graphQL mutation to create a new Pomodoro
 // $id is id of current logged in user
-const CREATE_REMINDER_MUTATION = gql`
-  mutation CREATE_REMINDER_MUTATION(
-    $time: Int!
-    $label: String!
-    $alert: String!
+const CREATE_POMODORO_MUTATION = gql`
+  mutation CREATE_POMODORO_MUTATION(
+    $session: Int!
+    $break: Int!
     $color: String!
     $sound: String!
     $id: ID!
   ) {
-    createReminder(
+    createPomodoro(
       data: {
-        time: $time
-        label: $label
-        alert: $alert
+        session: $session
+        break: $break
         color: $color
         sound: $sound
         author: { connect: { id: $id } }
       }
     ) {
       id
-      label
+      session
+      break
     }
   }
 `;
 
-// show form to add new Reminder
+// show form to add new Pomodoro
 // MUST pass closeForm prop, which is a function that is
 // execute to close whatever popup this form shows up in
 // right now it's setup to accept 'closeFrom' from ModalTemplate
 // located in /lib/ModalTemplate.js
 // id => id of current user
-export default function CreateReminderForm({ id, closeForm }) {
+export default function CreatePomodoroForm({ id, closeForm }) {
   // create state for form input and handling
   // using custom hook useForm
   // console.log(`id = ${id}`);
   const { inputs, handleChange, clearForm } = useForm({
-    time: '',
-    alert: '',
-    label: '',
+    session: '',
+    break: '',
     color: '',
     sound: '',
   });
   // console.log(inputs);
 
-  // useMutation hook to generate createReminder function
-  // that will create new Reminder
-  const [createReminder, { loading, error }] = useMutation(
-    CREATE_REMINDER_MUTATION,
+  // useMutation hook to generate createPomodoro function
+  // that will create new Pomodoro
+  const [createPomodoro, { loading, error }] = useMutation(
+    CREATE_POMODORO_MUTATION,
     {
-      // submit form inputs to create new Reminder + id of user
+      // submit form inputs to create new Pomodoro + id of user
       variables: {
         ...inputs,
         id, // submitting id of user
@@ -70,33 +68,33 @@ export default function CreateReminderForm({ id, closeForm }) {
   );
   if (loading) return <p>Loading...</p>;
   if (error) return console.error(error); // catch errors
-  // show Alert success message if Reminder is successfully created
+  // show Alert success message if Pomodoro is successfully created
 
   async function handleSubmit(e) {
     e.preventDefault(); // prevent default form behavior
-    await createReminder(); // create new reminder using 'inputs' from form
-    const reminderName = inputs.label;
+    await createPomodoro(); // create new Pomodoro using 'inputs' from form
+    const PomodoroName = `${inputs.session}-${inputs.break}`;
     clearForm();
     closeForm();
     // show success message
     Swal.fire({
       icon: 'success',
       title: 'Woho!!!',
-      text: `${reminderName} Reminder Sucessfully Created!`,
+      text: `${PomodoroName} Pomodoro Sucessfully Created!`,
       timer: 5000,
     });
   }
-  // input form to create new Reminder,
+  // input form to create new Pomodoro,
   // will take : time (in minutes), title (label), alert message,
   // color , and sound.  all fields are required.  color and
   // sound are pre-defined - user selects from drop down
   return (
-    <ReminderFormTemplate
+    <PomodoroFormTemplate
       {...inputs}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       loading={loading}
-      buttonTextCTA="Create Reminder"
+      buttonTextCTA="Create Pomodoro"
     />
   );
 }

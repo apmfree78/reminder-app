@@ -2,13 +2,15 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line import/no-cycle
 import { useQuery } from '@apollo/client';
-import { Container, Grid, Typography } from '@mui/material';
+import { Box, Card, Container, Grid, Typography } from '@mui/material';
 import { useState } from 'react';
 import ReminderCard from '../components/reminder/ReminderCard';
 import PomodoroCard from '../components/pomodoro/PomodoroCard';
 import { CURRENT_USER_QUERY } from '../components/user/User';
-import AddReminderButton from '../components/reminder/AddReminderButton';
+import AddTimerButton from '../components/AddTimerButton';
 import { membershipLocal } from '../lib/membership-data';
+import CreateReminderForm from '../components/reminder/CreateReminderForm';
+import CreatePomodoroForm from '../components/pomodoro/CreatePomodoroForm';
 // import client from '../apollo-client';
 
 // boolean function that determins if users has match or exceeded
@@ -78,7 +80,25 @@ export default function Home() {
         ))}
         {/* final element is '+' button to add new Reminder Card
             passing id of user  */}
-        <AddReminderButton id={id} disabled={addButtonDisabled} />
+        <Grid
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'baseline',
+            justifyContent: 'center',
+          }}
+          item
+          xs={6}
+          sm={4}
+          md={3}
+        >
+          <AddTimerButton id={id} title="Reminder" disabled={addButtonDisabled}>
+            <CreateReminderForm />
+          </AddTimerButton>
+          <AddTimerButton id={id} title="Pomodoro" disabled={addButtonDisabled}>
+            <CreatePomodoroForm />
+          </AddTimerButton>
+        </Grid>
       </Grid>
     </Container>
   );
