@@ -11,10 +11,13 @@ import { isSignedIn, rules } from '../access';
 
 export const Reminder = list({
   access: {
-    create: isSignedIn,
+    // create: isSignedIn,
     read: () => true,
-    update: rules.canManageTimers,
-    delete: rules.canManageTimers,
+    create: () => true, // FOR DEMO
+    update: () => true, // FOR DEMO
+    delete: () => true, // FOR DEMO
+    // update: rules.canManageTimers,
+    // delete: rules.canManageTimers,
   },
   fields: {
     alert: text({

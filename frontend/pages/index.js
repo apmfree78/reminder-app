@@ -2,8 +2,9 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line import/no-cycle
 import { useQuery } from '@apollo/client';
-import { Box, Card, Container, Grid, Typography } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import { useState } from 'react';
+import gql from 'graphql-tag';
 import ReminderCard from '../components/reminder/ReminderCard';
 import PomodoroCard from '../components/pomodoro/PomodoroCard';
 import { CURRENT_USER_QUERY } from '../components/user/User';
@@ -11,7 +12,26 @@ import AddTimerButton from '../components/AddTimerButton';
 import { membershipLocal } from '../lib/membership-data';
 import CreateReminderForm from '../components/reminder/CreateReminderForm';
 import CreatePomodoroForm from '../components/pomodoro/CreatePomodoroForm';
-// import client from '../apollo-client';
+
+export const ALL_TIMER_QUERY = gql`
+  query {
+    allReminders {
+      id
+      time
+      label
+      alert
+      color
+      sound
+    }
+    allPomodoros {
+      id
+      session
+      break
+      color
+      sound
+    }
+  }
+`;
 
 // boolean function that determins if users has match or exceeded
 // number of reminder user can create at current membership level
@@ -30,22 +50,48 @@ export default function Home() {
   // then they cannot create any more reminders
   const [addButtonDisabled, setAddButtonDisabled] = useState(false);
 
+  // variables to hold data from graphQL call
+  let id = '625355c4e03430098b2f3e1d'; // user id
+  let name = 'Amit'; // user name
+  let reminders; // JSON reminders
+  let pomodoros; // JSON pomodors
+
   // fetching data from database using GraphQL API call
   // const user = useUser();
-  const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
+  const { userData, userLoading, userError } = useQuery(CURRENT_USER_QUERY);
+
+  // FOR USER DEMO
+  const { data, loading, error } = useQuery(ALL_TIMER_QUERY);
+
+  // checking loading and error states
+  if (userLoading) return <p>Loading...</p>;
+  if (userError) return console.error(userError);
+
+  // FOR USER DEMO
   if (loading) return <p>Loading...</p>;
   if (error) return console.error(error);
-  // extracting user data
-  const user = data?.authenticatedItem; // user data
+
+  // extracting user data and timer data
+  const user = userData?.authenticatedItem; // user data
+
+  // FOR USER DEMO
+  const allTimers = data; // all timer (pomodoro + reminder) data
 
   // call function isReminderLimit hit to check is user can still
   // add more reminders.  This function will return a boolean which
   // will then set the state for addButtonDisabled
   if (user) {
+    // destructuring name of user, id of user, and their reminder cards
+    ({ id, name, reminders, pomodoros } = user);
     const limitHit = isReminderLimitHit(user);
     if (addButtonDisabled !== limitHit) setAddButtonDisabled(limitHit);
+  } else {
+    // FOR USER DEMO
+    // if user is not logged in show all timers
+    ({ allReminders: reminders, allPomodoros: pomodoros } = allTimers);
   }
-  //  if user is not logged in, direct them to do so
+  // COMMENTED OUT FOR USER DEMO
+  /*   //  if user is not logged in, direct them to do so
   if (!user)
     return (
       <Grid
@@ -58,10 +104,8 @@ export default function Home() {
           Please Sign In or Sign Up to view and create Reminders
         </Typography>
       </Grid>
-    );
+    ); */
 
-  // destructuring name of user, id of user, and their reminder cards
-  const { id, name, reminders, pomodoros } = user;
   return (
     // rendering each Reminder Card on the screen
     <Container sx={{ p: 2 }} maxWidth="lg">

@@ -11,10 +11,13 @@ import { isSignedIn, rules } from '../access';
 
 export const Pomodoro = list({
   access: {
-    create: isSignedIn,
+    // create: isSignedIn,
+    create: () => true, // FOR DEMO
     read: () => true,
-    update: rules.canManageTimers,
-    delete: rules.canManageTimers,
+    update: () => true, // FOR DEMO
+    delete: () => true, // FOR DEMO
+    // update: rules.canManageTimers,
+    // delete: rules.canManageTimers,
   },
   fields: {
     session: integer({
