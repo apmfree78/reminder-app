@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import Swal from 'sweetalert2';
 import useForm from '../../lib/useForm';
+import { ALL_TIMER_QUERY } from '../../pages';
 import { CURRENT_USER_QUERY } from '../user/User';
 import PomodoroFormTemplate from './PomodoroFormTemplate';
 
@@ -44,7 +45,7 @@ const CREATE_POMODORO_MUTATION = gql`
 export default function CreatePomodoroForm({ id, closeForm }) {
   // create state for form input and handling
   // using custom hook useForm
-  // console.log(`id = ${id}`);
+  console.log(`id = ${id}`);
   const { inputs, handleChange, clearForm } = useForm({
     session: '',
     break: '',
@@ -63,7 +64,10 @@ export default function CreatePomodoroForm({ id, closeForm }) {
         ...inputs,
         id, // submitting id of user
       },
-      refetchQueries: [{ query: CURRENT_USER_QUERY }], // update apollo cache
+      refetchQueries: [
+        { query: CURRENT_USER_QUERY },
+        { query: ALL_TIMER_QUERY },
+      ], // update apollo cache
     }
   );
   if (loading) return <p>Loading...</p>;

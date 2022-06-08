@@ -7,6 +7,7 @@ import gql from 'graphql-tag';
 import Swal from 'sweetalert2';
 import useForm from '../../lib/useForm';
 import { CURRENT_USER_QUERY } from '../user/User';
+import { ALL_TIMER_QUERY } from '../../pages/index';
 import DeleteReminder from './DeleteReminder';
 import ReminderFormTemplate from './ReminderFormTemplate';
 
@@ -63,7 +64,10 @@ export default function UpdateReminderForm({ reminder, closeForm }) {
     // update reminder using 'inputs' from form
     await updateReminder({
       variables: { id: reminder.id, ...inputs }, // submit form inputs to create new Reminder
-      refetchQueries: [{ query: CURRENT_USER_QUERY }], // update apollo cache
+      refetchQueries: [
+        { query: CURRENT_USER_QUERY },
+        { query: ALL_TIMER_QUERY },
+      ], // update apollo cache
     }).catch(console.error);
     const reminderName = inputs.label;
     clearForm();

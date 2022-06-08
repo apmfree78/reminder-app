@@ -12,8 +12,8 @@ import { isSignedIn, rules } from '../access';
 export const Pomodoro = list({
   access: {
     // create: isSignedIn,
-    create: () => true, // FOR DEMO
     read: () => true,
+    create: () => true, // FOR DEMO
     update: () => true, // FOR DEMO
     delete: () => true, // FOR DEMO
     // update: rules.canManageTimers,

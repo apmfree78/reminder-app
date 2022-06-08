@@ -48,7 +48,7 @@ export default function Home() {
   // set state variable to track number of reminders user has
   // if user hits the limit set by their membership plan
   // then they cannot create any more reminders
-  const [addButtonDisabled, setAddButtonDisabled] = useState(false);
+  const [addButtonDisabled, setAddButtonDisabled] = useState(true);
 
   // variables to hold data from graphQL call
   let id = '625355c4e03430098b2f3e1d'; // user id
@@ -58,7 +58,11 @@ export default function Home() {
 
   // fetching data from database using GraphQL API call
   // const user = useUser();
-  const { userData, userLoading, userError } = useQuery(CURRENT_USER_QUERY);
+  const {
+    data: userData,
+    loading: userLoading,
+    error: userError,
+  } = useQuery(CURRENT_USER_QUERY);
 
   // FOR USER DEMO
   const { data, loading, error } = useQuery(ALL_TIMER_QUERY);
@@ -73,6 +77,7 @@ export default function Home() {
 
   // extracting user data and timer data
   const user = userData?.authenticatedItem; // user data
+  // console.log(user);
 
   // FOR USER DEMO
   const allTimers = data; // all timer (pomodoro + reminder) data
@@ -80,15 +85,15 @@ export default function Home() {
   // call function isReminderLimit hit to check is user can still
   // add more reminders.  This function will return a boolean which
   // will then set the state for addButtonDisabled
-  if (user) {
+  if (!user) {
+    // FOR USER DEMO
+    // if user is not logged in show all timers
+    ({ allReminders: reminders, allPomodoros: pomodoros } = allTimers);
+  } else {
     // destructuring name of user, id of user, and their reminder cards
     ({ id, name, reminders, pomodoros } = user);
     const limitHit = isReminderLimitHit(user);
     if (addButtonDisabled !== limitHit) setAddButtonDisabled(limitHit);
-  } else {
-    // FOR USER DEMO
-    // if user is not logged in show all timers
-    ({ allReminders: reminders, allPomodoros: pomodoros } = allTimers);
   }
   // COMMENTED OUT FOR USER DEMO
   /*   //  if user is not logged in, direct them to do so

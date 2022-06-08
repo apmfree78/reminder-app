@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import Swal from 'sweetalert2';
 import useForm from '../../lib/useForm';
+import { ALL_TIMER_QUERY } from '../../pages';
 import { CURRENT_USER_QUERY } from '../user/User';
 import DeletePomodoro from './DeletePomodoro';
 import PomodoroFormTemplate from './PomodoroFormTemplate';
@@ -54,7 +55,10 @@ export default function UpdatePomodoroForm({ pomodoro, closeForm }) {
     // update Pomodoro using 'inputs' from form
     await updatePomodoro({
       variables: { id: pomodoro.id, ...inputs }, // submit form inputs to create new Pomodoro
-      refetchQueries: [{ query: CURRENT_USER_QUERY }], // update apollo cache
+      refetchQueries: [
+        { query: CURRENT_USER_QUERY },
+        { query: ALL_TIMER_QUERY },
+      ], // update apollo cache
     }).catch(console.error);
     const PomodoroName = `${inputs.session}-${inputs.break} Pomodoro`;
     closeForm();
