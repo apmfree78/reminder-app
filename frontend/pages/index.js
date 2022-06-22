@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line import/no-cycle
 import { useQuery } from '@apollo/client';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useState } from 'react';
 import gql from 'graphql-tag';
 import ReminderCard from '../components/reminder/ReminderCard';
@@ -12,6 +12,7 @@ import AddTimerButton from '../components/AddTimerButton';
 import { membershipLocal } from '../lib/membership-data';
 import CreateReminderForm from '../components/reminder/CreateReminderForm';
 import CreatePomodoroForm from '../components/pomodoro/CreatePomodoroForm';
+import Youtube from '../lib/youtube';
 
 export const ALL_TIMER_QUERY = gql`
   query {
@@ -149,6 +150,7 @@ export default function Home() {
           </AddTimerButton>
         </Grid>
       </Grid>
+      <Youtube embedId="tlAKXyPd7i8" />
     </Container>
   );
 }
