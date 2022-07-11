@@ -1,7 +1,7 @@
 ## Full Stack SaaS App Build with React frontend and Node.js backend
 
-Application was built with Next.js full stack framework. Keystone.js on backend
-to manage a robust GraphQL API and MongoDB database. Apollo setup on frontend to
+Application was built with **Next.js** full stack framework. **Keystone.js** on backend
+to manage a robust **GraphQL** API and **MongoDB** database. Apollo setup on frontend to
 call GraphQL API.
 
 Once user creates account they can create reminder timers for specific
