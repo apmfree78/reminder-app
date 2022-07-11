@@ -72,7 +72,6 @@ export default function CreatePomodoroForm({ id, closeForm }) {
   );
   if (loading) return <p>Loading...</p>;
   if (error) return console.error(error); // catch errors
-  // show Alert success message if Pomodoro is successfully created
 
   async function handleSubmit(e) {
     e.preventDefault(); // prevent default form behavior
@@ -80,7 +79,7 @@ export default function CreatePomodoroForm({ id, closeForm }) {
     const PomodoroName = `${inputs.session}-${inputs.break}`;
     clearForm();
     closeForm();
-    // show success message
+    // show Alert success message if Pomodoro is successfully created
     Swal.fire({
       icon: 'success',
       title: 'Woho!!!',

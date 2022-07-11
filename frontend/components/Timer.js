@@ -19,7 +19,7 @@ const displayTime = (time) => {
 // show current time on timer and mode
 // note current time is passed down as children from ReminderCard.js
 const Timer = ({ children }) => (
-  <Typography variant="h2" component="div">
+  <Typography sx={{ fontSize: '3em' }} component="div">
     {displayTime(children)}
   </Typography>
 );

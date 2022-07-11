@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
-import { Button, FormControl, Grid, TextField } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useRouter } from 'next/router';
 import useForm from '../../lib/useForm';

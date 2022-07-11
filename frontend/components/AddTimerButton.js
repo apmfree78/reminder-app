@@ -1,16 +1,16 @@
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/material';
 import { cloneElement, useState } from 'react';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ModalTemplate from '../lib/ModalTemplate';
 
-// BIG button pops up form to add a new Reminder when users clicks it
+// BIG button pops up form to add a new Reminder or Pomodoro when users clicks it
 // title => headline text, disabled => boolean, is button disabled ?
 // children is Create<Timer Type>Form component
 export default function AddTimerButton({ children, id, title, disabled }) {
   const [createTimer, setCreateTimer] = useState(false);
   return (
     <>
-      {/* when user clicks on big '+' show pop up to create Reminder */}
+      {/* when user clicks on big '+' show pop up to create Reminder or Pomodoro */}
       {createTimer && (
         <ModalTemplate
           open={createTimer}
