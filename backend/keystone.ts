@@ -50,6 +50,7 @@ export default withAuth(
           process.env.FRONTEND_URL,
           process.env.FRONTEND_URL2,
           process.env.FRONTEND_URL3,
+          process.env.FRONTEND_URL4,
         ],
         credentials: true,
       },
