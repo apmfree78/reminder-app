@@ -17,7 +17,6 @@ export const Pomodoro = list({
     update: () => true, // FOR DEMO
     delete: () => true, // FOR DEMO
     // update: rules.canManageTimers,
-    // delete: rules.canManageTimers,
   },
   fields: {
     session: integer({
